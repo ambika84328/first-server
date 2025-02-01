@@ -5,16 +5,23 @@ const server = http.createServer((req,res) => {
     res.setHeader('Content-Type','text/html')
 
     if(req.url=="/" && req.method=="GET"){
-        res.statusCode = 200;
-        res.end(
-        `
-            <form action="/" method="POST">
-                <label for="message">message:</label>
-                <input type="text" name="message"/>
-                <button type="submit">Submit</button>
-            </form>
-        `
-        )
+        fs.readFile('formData.txt',(err,data) =>{
+            if(err){
+                console.log(err);
+                res.statusCode = 500;
+                return res.end("<h1>Internal Server Error</h1>")
+            }
+            res.statusCode = 200;
+            res.end(
+            `
+                <form action="/" method="POST">
+                    <h1>${data}</h1>
+                    <input type="text" name="message"/>
+                    <button type="submit">Submit</button>
+                </form>
+            `
+            )
+        })
     }else if(req.url=="/" && req.method=="POST"){
         let datachunks = [];
 
