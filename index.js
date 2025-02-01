@@ -1,13 +1,14 @@
-const http = require('http')
-const app = require('express')
+const express = require('express')
 const bodyParser = require('body-parser')
 
-app.use(bodyParser.urlencoded({extended:false}))
+const app = express()
+
+app.use(bodyParser.urlencoded({extended:false}));
 
 app.get('/', (req, res, next) =>{
     res.send(
         `
-        <form action="/product" method="POST">
+        <form action="/" method="POST">
             <label for="title">Product</label>
             <input type="text" name="title"/>
             <br>
