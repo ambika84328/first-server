@@ -1,9 +1,14 @@
 const http = require('http')
-const route = require("./route")
+const app = require('express')
 
-const server = http.createServer(route.handler)
-
-server.listen(3000,()=>{
-    console.log("listing in port 3000")
+app.send((req,res,next)=>{
+    console.log("hello from first middleware");
+    next();
 })
+
+app.send((req,res,next)=>{
+    console.log("hello from second middleware");
+})
+
+app.listen(3000)
 
